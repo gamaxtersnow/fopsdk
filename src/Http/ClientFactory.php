@@ -12,11 +12,11 @@ class ClientFactory
     public static function create(string $baseUrl,Config $config): ClientInterface
     {
         $stack = HandlerStack::create();
-        $stack->push(TaiBaoMiddleware::post());
-        $stack->push(TaiBaoMiddleware::sign($config));
-        $stack->push(TaiBaoMiddleware::encrypt($config));
-        $stack->push(TaiBaoMiddleware::retry());
-        $stack->push(TaiBaoMiddleware::response($config));
+        $stack->push(FopMiddleware::post());
+        $stack->push(FopMiddleware::sign($config));
+        $stack->push(FopMiddleware::encrypt($config));
+        $stack->push(FopMiddleware::retry());
+        $stack->push(FopMiddleware::response($config));
         return new Client(['base_uri' => $baseUrl,'handler' => $stack]);
     }
 }

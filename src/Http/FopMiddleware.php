@@ -17,7 +17,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionClass;
 
-class TaiBaoMiddleware
+class FopMiddleware
 {
     const RETRY_MAX_RETRIES = 1;
     const  RESPONSE_ADAPTER = [
