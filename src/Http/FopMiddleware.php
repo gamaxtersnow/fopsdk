@@ -3,6 +3,7 @@
 namespace fop\Http;
 
 
+use fop\Http\Request\Sign\RSA2Adapter;
 use fop\Http\Response\JsonAdapter;
 use fop\Http\Response\XmlAdapter;
 use fop\Internal\Util\FopSignature;
@@ -20,6 +21,9 @@ use ReflectionClass;
 class FopMiddleware
 {
     const RETRY_MAX_RETRIES = 1;
+    const REQUEST_SIGN_ADAPTER = [
+        'rsa2'=>RSA2Adapter::class
+    ];
     const  RESPONSE_ADAPTER = [
         'json'=>JsonAdapter::class,
         'xml'=>XmlAdapter::class,
@@ -58,7 +62,12 @@ class FopMiddleware
             }
             $signFields = array_merge($headers, $content);
             $signContent = FopSignature::getSignContent($signFields);
-            $headers['sign'] = FopSignature::getSign($config->getRsaPrivateKey(), $signContent);
+            $signType = strtolower($config->getSignType());
+            if(array_key_exists($signType, self::REQUEST_SIGN_ADAPTER)){
+                $headers['sign'] = (new ReflectionClass(self::REQUEST_SIGN_ADAPTER[$signType]))->newInstanceArgs()->sign($config->getRsaPrivateKey(), $signContent);
+            }else {
+                $headers['sign'] = FopSignature::getSign($config->getRsaPrivateKey(), $signContent);
+            }
             foreach ($headers as $key => $value) {
                 $request = $request->withAddedHeader($key, $value);
             }
