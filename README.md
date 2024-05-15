@@ -13,7 +13,7 @@
 ## Installation
 
 ```bash
-composer require king/fopsdk
+composer require gamaxtersnow/fopsdk
 ```
 
 ## License
