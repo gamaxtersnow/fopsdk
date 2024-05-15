@@ -11,6 +11,7 @@
     use Symfony\Component\HttpFoundation\Request;
 
     class App extends ContainerBuilder {
+
     public $config;
     public function __construct(array $config = [])
     {
