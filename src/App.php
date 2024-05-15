@@ -1,6 +1,6 @@
 <?php
     namespace fop;
-    use fop\Crypt\TaiBaoBizDataCrypt;
+    use fop\Crypt\FopBizDataCrypt;
     use fop\Http\ClientFactory;
     use fop\Http\Config;
     use fop\Http\HttpClient;
@@ -41,12 +41,12 @@
     {
         $this->register('request', Request::class)
             ->setFactory([Request::class, 'createFromGlobals']);
-        $this->register('tb_biz_data_crypt', TaiBaoBizDataCrypt::class)
+        $this->register('fop_biz_data_crypt', FopBizDataCrypt::class)
             ->addMethodCall('setRsaPublicKey', [$this->opensslPublicKey()])
             ->addMethodCall('setRsaPrivateKey', [$this->opensslPrivateKey()])
         ->addMethodCall('setCipher', [$this->config->get('cipher')]);
         $this->register('callback', Callback::class)
-            ->setArguments([new Reference('request'), new Reference('tb_biz_data_crypt')]);
+            ->setArguments([new Reference('request'), new Reference('fop_biz_data_crypt')]);
     }
     protected function opensslPublicKey():string {
         return is_file($this->config->get('public_key'))?file_get_contents($this->config->get('public_key')):$this->config->get('public_key');

@@ -1,6 +1,6 @@
 <?php
 namespace fop;
-use fop\Crypt\TaiBaoBizDataCrypt;
+use fop\Crypt\FopBizDataCrypt;
 use fop\Exception\ErrorCode;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +9,7 @@ use think\response\Json;
 class Callback {
     protected $request;
     protected $crypt;
-    public function __construct(Request $request, TaiBaoBizDataCrypt $crypt)
+    public function __construct(Request $request, FopBizDataCrypt $crypt)
     {
         $this->request = $request;
         $this->crypt = $crypt;

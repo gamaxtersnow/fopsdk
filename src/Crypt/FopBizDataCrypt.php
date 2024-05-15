@@ -8,7 +8,7 @@ use fop\Traits\RsaPublicKeyTrait;
 use fop\Util\AESUtil;
 use Exception;
 
-class TaiBaoBizDataCrypt
+class FopBizDataCrypt
 {
     use RsaPublicKeyTrait,RsaPrivateKeyTrait,CipherTrait;
 
