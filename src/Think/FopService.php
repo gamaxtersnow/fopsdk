@@ -1,6 +1,6 @@
 <?php
 
-namespace app\service;
+namespace fop\Think;
 
 use fop\App;
 use think\Service;
