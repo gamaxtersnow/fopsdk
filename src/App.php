@@ -20,7 +20,7 @@
         $this->_registerCallback();
     }
     private function _registerHttpClient() {
-        $this->register('taibao_config', Config::class)
+        $this->register('fop_config', Config::class)
             ->addMethodCall('setAppId', [$this->config->get('app_id')])
             ->addMethodCall('setAppCode', [$this->config->get('app_code')])
             ->addMethodCall('setCharset', [$this->config->get('charset')])
@@ -32,7 +32,7 @@
             ->addMethodCall('setTimestampFormat', [$this->config->get('timestamp_format')])
             ->addMethodCall('setVersion', [$this->config->get('version')]);
         $this->register('client', Client::class)
-            ->setArguments([$this->config->get('base_url'),new Reference('taibao_config')])
+            ->setArguments([$this->config->get('base_url'),new Reference('fop_config')])
             ->setFactory([ClientFactory::class,'create']);
         $this->register('http_client', HttpClient::class)
             ->addArgument(new Reference('client'));
