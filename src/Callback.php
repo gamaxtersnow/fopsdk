@@ -30,12 +30,12 @@ class Callback {
     /**
      * @throws Exception
      */
-    public function setRespBody(string $content): Json
+    public function setRespBody(string $content): array
     {
         $data = $this->crypt->getRespBody($content);
         if(empty($data)){
             throw new Exception(ErrorCode::getCodeMsg(ErrorCode::$reqBodyEncodeFail),ErrorCode::$reqBodyEncodeFail);
         }
-        return json($data);
+        return $data;
     }
 }
